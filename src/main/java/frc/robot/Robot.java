@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.XboxController;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,12 +27,12 @@ public class Robot extends TimedRobot {
   private XboxController xbox = new XboxController(0);
 
   
-  private final MotorController switch1 = new Talon(0);
-  private final MotorController switch2 = new Talon(0);
-  private final MotorController m_rightMotor = new Talon(1);
-  private final MotorController m_rightMotor2 = new Talon(1);
-  private final WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(0);
-  private final WPI_TalonSRX m_leftMotor2 = new WPI_TalonSRX(0);
+  private final MotorController switch1 = new Talon(2);
+  private final MotorController switch2 = new Talon(3);
+  private final MotorController m_rightMotor = new Talon(0);
+  private final MotorController m_rightMotor2 = new Talon(1); 
+  private final WPI_VictorSPX m_leftMotor = new WPI_VictorSPX(6);
+  private final WPI_VictorSPX m_leftMotor2 = new WPI_VictorSPX(7);
 
   private final MotorControllerGroup left = new MotorControllerGroup(m_leftMotor, m_leftMotor2);
   private final MotorControllerGroup right = new MotorControllerGroup( m_rightMotor, m_rightMotor2);
@@ -41,7 +42,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotInit() {
-    // We need to invert one side of the drivetrain so that positive voltages
+    // We need to invert one side of the drivetrain so that positive voltj   ages
     // result in both sides moving forward. Depending on how your robot's
     // gearbox is constructed, you might have to invert the left side instead.
     right.setInverted(true);
@@ -61,10 +62,10 @@ public void autonomousPeriodic() {
   System.out.println(time - startTime);
 
   if (time-startTime < 3) {
-    m_rightMotor.set(0.5);
-    m_rightMotor2.set(0.5);
-    m_leftMotor.set(-0.5);
-    m_leftMotor2.set(-0.5);
+    m_rightMotor.set(0.4);
+    m_rightMotor2.set(0.4);
+    m_leftMotor.set(-0.4);
+    m_leftMotor2.set(-0.4);
   }
   else {
     m_rightMotor.set(0);
@@ -78,15 +79,15 @@ public void autonomousPeriodic() {
   public void teleopPeriodic() {
     m_myRobot.arcadeDrive(xbox.getLeftY(), xbox.getRightX());
     if (xbox.getAButton()) {
-      armMotors.set(0.5);
+      armMotors.set(0.35);
 
-    }
-    if (xbox.getXButton()) {
+    }else if (xbox.getBButton()) {
+      armMotors.set(-0.2);
+    } else {
       armMotors.set(0);
-    }
-    if (xbox.getBButton()) {
-      armMotors.set(-0.5);
-    }
+
+    }  
+    
 
 
     

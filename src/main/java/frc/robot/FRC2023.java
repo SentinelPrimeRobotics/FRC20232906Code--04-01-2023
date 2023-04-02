@@ -6,8 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
@@ -26,12 +26,12 @@ public class FRC2023 extends TimedRobot {
   private XboxController xbox = new XboxController(0);
 
   
-  private final MotorController switch1 = new Talon(0);
-  private final MotorController switch2 = new Talon(0);
-  private final MotorController m_rightMotor = new Talon(1);
+  private final MotorController switch1 = new Talon(2);
+  private final MotorController switch2 = new Talon(3);
+  private final MotorController m_rightMotor = new Talon(0);
   private final MotorController m_rightMotor2 = new Talon(1);
-  private final WPI_TalonSRX m_leftMotor = new WPI_TalonSRX(0);
-  private final WPI_TalonSRX m_leftMotor2 = new WPI_TalonSRX(0);
+  private final WPI_VictorSPX m_leftMotor = new WPI_VictorSPX(2);
+  private final WPI_VictorSPX m_leftMotor2 = new WPI_VictorSPX(3);
 
   private final MotorControllerGroup left = new MotorControllerGroup(m_leftMotor, m_leftMotor2);
   private final MotorControllerGroup right = new MotorControllerGroup( m_rightMotor, m_rightMotor2);
